@@ -26,3 +26,33 @@ def create_task():
     db.session.commit()
     return jsonify(new_task.to_dict()), 201
 
+@api.route("/tasks/<int:task_id>", methods=["PUT"])
+def update_task(task_id: int):
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+
+    data = request.get_json()
+    task.title = data.get("title")
+    task.description = data.get("description", "")
+    task.is_done = data.get("is_done", False)
+
+    db.session.commit()
+    return jsonify(task.to_dict())
+
+@api.route("/tasks/<int:task_id>", methods=["PATCH"])
+def partial_update_task(task_id: int):
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+
+    data = request.get_json()
+    if "title" in data:
+        task.title = data["title"]
+    if "description" in data:
+        task.description = data["description"]
+    if "is_done" in data:
+        task.is_done = data["is_done"]
+
+    db.session.commit()
+    return jsonify(task.to_dict())
