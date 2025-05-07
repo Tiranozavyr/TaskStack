@@ -56,3 +56,14 @@ def partial_update_task(task_id: int):
 
     db.session.commit()
     return jsonify(task.to_dict())
+
+@api.route("/tasks/<int:task_id>", methods=["DELETE"])
+def delete_task(task_id: int):
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+
+    db.session.delete(task)
+    db.session.commit()
+
+    return jsonify({"message": "Task deleted successfully"}), 200
