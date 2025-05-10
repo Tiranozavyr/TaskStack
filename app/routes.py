@@ -14,6 +14,13 @@ def get_tasks():
     tasks = cast(List[Task], Task.query.all())
     return jsonify([task.to_dict() for task in tasks])
 
+@api.route("/tasks/<int:task_id>", methods=["GET"])
+def get_task(task_id: int):
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+    return jsonify(task.to_dict())
+
 @api.route("/tasks", methods=["POST"])
 def create_task():
     data = request.get_json()
