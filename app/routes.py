@@ -24,10 +24,25 @@ def get_task(task_id: int):
 @api.route("/tasks", methods=["POST"])
 def create_task():
     data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid input"}), 400
+    
+    title = data.get("title")
+    if not title or not isinstance(title, str):
+        return jsonify({"error": "Invalid or missing 'title'. Must be a non-empty string."}), 400
+
+    description = data.get("description", "")
+    if not isinstance(description, str):
+        return jsonify({"error": "Invalid 'description'. Must be a string."}), 400
+
+    is_done = data.get("is_done", False)
+    if not isinstance(is_done, bool):
+        return jsonify({"error": "Invalid 'is_done'. Must be a boolean."}), 400
+    
     new_task = Task(
-        title=data.get("title"),
-        description=data.get("description", ""),
-        is_done=data.get("is_done", False)
+        title=title,
+        description=description,
+        is_done=is_done
     )
     db.session.add(new_task)
     db.session.commit()
