@@ -84,12 +84,24 @@ def partial_update_task(task_id: int):
         return jsonify({"error": "Task not found"}), 404
 
     data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid input"}), 400
+
     if "title" in data:
-        task.title = data["title"]
+        title = data["title"]
+        if not title or not isinstance(title, str):
+            return jsonify({"error": "Invalid 'title'. Must be a non-empty string."}), 400
+        task.title = title
     if "description" in data:
-        task.description = data["description"]
+        description = data["description"]
+        if not isinstance(description, str):
+            return jsonify({"error": "Invalid 'description'. Must be a string."}), 400
+        task.description = description
     if "is_done" in data:
-        task.is_done = data["is_done"]
+        is_done = data["is_done"]
+        if not isinstance(is_done, bool):
+            return jsonify({"error": "Invalid 'is_done'. Must be a boolean."}), 400
+        task.is_done = is_done
 
     db.session.commit()
     return jsonify(task.to_dict())
