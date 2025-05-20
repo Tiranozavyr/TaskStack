@@ -25,12 +25,14 @@ function App() {
     fetchTasks();
   }, []);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
   const toggleTheme = () => {
-    const html = document.documentElement;
-    html.classList.toggle("dark");
-    const newTheme = html.classList.contains("dark") ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
+    const next = theme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", next);
+    setTheme(next);
   };
 
   const handleAddTask = (e) => {
@@ -96,7 +98,7 @@ function App() {
   };
 
   return (
-    <div style={{ ...styles.app, position: "relative" }}>
+    <div className="app" style={styles.app}>
       <div style={styles.themeToggle}>
         <button
           style={{
@@ -214,13 +216,13 @@ function App() {
                   </div>
                   <div>
                     <button
-                      style={{ ...styles.button, background: "#007bff" }}
+                      className="text-button"
                       onClick={() => handleEdit(task)}
                     >
                       Edit
                     </button>
                     <button
-                      style={{ ...styles.button, background: "#dc3545" }}
+                      className="text-button error"
                       onClick={() => handleDelete(task.id)}
                     >
                       Delete

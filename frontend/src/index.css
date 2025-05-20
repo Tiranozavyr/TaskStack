@@ -8,6 +8,32 @@ html {
   box-sizing: inherit;
 }
 
+/* Light theme */
+:root {
+  --bg: #f8f9fa;
+  --text: #222;
+  --header: #282c34;
+  --item-bg: #fff;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --primary: #007bff;
+  --primary-text: #fff;
+  --error: #dc3545;
+}
+
+/* Dark theme */
+html.dark {
+  --bg: #121212;
+  --text: #f8f9fa;
+  --header: #f8f9fa;
+  --item-bg: #1e1e1e;
+  --input-bg: #2a2a2a;
+  --input-border: #555;
+  --primary: #375a7f;
+  --primary-text: #f8f9fa;
+  --error: #e74c3c;
+}
+
 body {
   height: 100%;
   margin: 0;
@@ -16,6 +42,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  background: var(--bg);
+  color: var(--text);
 }
 
 code {
@@ -33,6 +67,7 @@ button.main-button {
   border: none;
   border-radius: 4px;
   color: #fff;
+  background: var(--primary);
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
@@ -52,6 +87,44 @@ button.main-button:disabled {
   opacity: 0.38;
   box-shadow: none;
   cursor: default;
+}
+
+button.text-button {
+  background: transparent;
+  color: var(--primary);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border: none;
+  min-width: 64px;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+button.text-button:hover:not(:disabled) {
+  background-color: rgba(0, 123, 255, 0.08);
+}
+
+button.text-button:active:not(:disabled) {
+  background-color: rgba(0, 123, 255, 0.12);
+}
+
+button.text-button:disabled {
+  color: rgba(0, 123, 255, 0.38);
+  cursor: default;
+}
+
+button.text-button.error {
+  color: #dc3545;
+}
+
+button.text-button.error:hover:not(:disabled) {
+  background-color: rgba(220, 53, 69, 0.08);
+}
+
+button.text-button.error:active:not(:disabled) {
+  background-color: rgba(220, 53, 69, 0.12);
 }
 
 input[type="checkbox"] {
@@ -81,4 +154,12 @@ input[type="checkbox"]:checked::after {
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.listItem {
+  background: var(--item-bg);
+}
+input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
 }
