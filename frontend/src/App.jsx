@@ -129,7 +129,7 @@ function App() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button className="main-button" style={styles.addButton} type="submit">
+        <button className="main-button" type="submit">
           Add Task
         </button>
       </form>
@@ -166,14 +166,11 @@ function App() {
                     onChange={(e) => setEditDescription(e.target.value)}
                     placeholder="Description (optional)"
                   />
-                  <button
-                    style={{ ...styles.button, background: "#28a745" }}
-                    type="submit"
-                  >
+                  <button className="main-button" type="submit">
                     Save
                   </button>
                   <button
-                    style={{ ...styles.button, background: "#6c757d" }}
+                    className="text-button"
                     type="button"
                     onClick={handleCancelEdit}
                   >
@@ -202,11 +199,11 @@ function App() {
                       }}
                     />
                     <span
-                      style={{
-                        ...styles.taskTitle,
-                        textDecoration: task.is_done ? "line-through" : "none",
-                        color: task.is_done ? "#aaa" : "#222",
-                      }}
+                      style={
+                        task.is_done
+                          ? { ...styles.taskTitle, ...styles.taskTitleDone }
+                          : styles.taskTitle
+                      }
                     >
                       {task.title}
                     </span>
@@ -240,16 +237,17 @@ function App() {
 
 const styles = {
   app: {
+    background: "var(--bg)",
+    color: "var(--text)",
     textAlign: "center",
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif",
     minHeight: "100vh",
-    backgroundColor: "#f8f9fa",
     padding: "2rem",
     position: "relative",
   },
   header: {
-    color: "#282c34",
+    color: "var(--header)",
     fontSize: "2.5rem",
     marginBottom: "2rem",
     letterSpacing: "2px",
@@ -265,18 +263,7 @@ const styles = {
     padding: "0.5rem",
     fontSize: "1rem",
     borderRadius: "4px",
-    border: "1px solid #ccc",
     minWidth: "180px",
-  },
-  addButton: {
-    padding: "0.5rem 1.2rem",
-    fontSize: "1rem",
-    borderRadius: "4px",
-    border: "none",
-    background: "#007bff",
-    color: "#fff",
-    cursor: "pointer",
-    transition: "background 0.2s",
   },
   list: {
     listStyle: "none",
@@ -285,7 +272,7 @@ const styles = {
     margin: "0 auto",
   },
   listItem: {
-    background: "#fff",
+    backgroundColor: "var(--item-bg)",
     margin: "0.5rem 0",
     padding: "1rem",
     borderRadius: "8px",
@@ -296,25 +283,19 @@ const styles = {
     flexWrap: "wrap",
     gap: "0.5rem",
   },
-  button: {
-    padding: "0.4rem 0.8rem",
-    fontSize: "0.95rem",
-    borderRadius: "4px",
-    border: "none",
-    color: "#fff",
-    cursor: "pointer",
-    marginLeft: "0.5rem",
-    transition: "background 0.2s",
-  },
-  taskTitle: {
-    fontWeight: "bold",
-    fontSize: "1.1rem",
-  },
   taskDesc: {
     fontStyle: "italic",
     color: "#666",
     marginLeft: "0.5rem",
     fontSize: "0.98rem",
+  },
+  taskTitle: {
+    color: "var(--text)",
+    fontWeight: "bold",
+  },
+  taskTitleDone: {
+    color: "var(--text-muted)",
+    textDecoration: "line-through",
   },
   themeToggle: {
     position: "absolute",
