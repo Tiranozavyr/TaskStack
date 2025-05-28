@@ -116,3 +116,11 @@ def delete_task(task_id: int):
     db.session.commit()
 
     return jsonify({"message": "Task deleted successfully"}), 200
+
+@api.errorhandler(404)
+def not_found(e: Exception):
+    return jsonify({"error":"Not found"}), 404
+
+@api.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status":"ok"}), 200
