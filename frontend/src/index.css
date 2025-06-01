@@ -1,7 +1,19 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 html {
   box-sizing: border-box;
   height: 100%;
 }
+
 *,
 *::before,
 *::after {
@@ -16,25 +28,25 @@ html {
   --header: #282c34;
   --item-bg: #fff;
   --input-bg: #fff;
-  --input-border: #ccc;
-  --primary: #007bff;
-  --primary-text: #fff;
-  --error: #dc3545;
+  --input-border: #bbb;
+  --primary: #2563eb;
+  --primary-text: #ffffff;
+  --error: #d33545;
   --placeholder: #888;
   --text-muted: #666;
 }
 
 /* Dark theme */
 html.dark {
-  --bg: #121212;
+  --bg: #181818;
   --text: #f8f9fa;
   --header: #f8f9fa;
   --item-bg: #1e1e1e;
-  --input-bg: #2a2a2a;
-  --input-border: #555;
-  --primary: #375a7f;
-  --primary-text: #f8f9fa;
-  --error: #e74c3c;
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: #444;
+  --primary: #3b82f6;
+  --primary-text: #ffffff;
+  --error: #d33c3c;
   --placeholder: #aaa;
   --text-muted: #999;
 }
