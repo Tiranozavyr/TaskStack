@@ -184,6 +184,7 @@ function App() {
                       display: "flex",
                       alignItems: "center",
                       flexGrow: 1,
+                      minWidth: 0,
                     }}
                   >
                     <input
@@ -209,6 +210,11 @@ function App() {
                     </span>
                     <span style={styles.taskDesc}>
                       {task.description ? ` — ${task.description}` : ""}
+                    </span>
+                    <span style={styles.taskTime}>
+                      {new Date(
+                        new Date(task.created_at).getTime() + 3 * 60 * 60 * 1000
+                      ).toLocaleString()}
                     </span>
                   </div>
                   <div>
@@ -292,10 +298,19 @@ const styles = {
   taskTitle: {
     color: "var(--text)",
     fontWeight: "bold",
+    flexShrink: 1,
+    wordBreak: "break-word",
   },
   taskTitleDone: {
     color: "var(--text-muted)",
     textDecoration: "line-through",
+    flexShrink: 1,
+    wordBreak: "break-word",
+  },
+  taskTime: {
+    fontSize: "0.85rem",
+    color: "var(--text-muted)",
+    marginLeft: "1rem",
   },
   themeToggle: {
     position: "absolute",
